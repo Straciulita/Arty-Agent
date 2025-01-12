@@ -19,6 +19,10 @@ public class ImageFactory {
                 return new CiupercaImage().createImages();
             case "FANTOMITA":
                 return new FantomitaImage().createImages();
+            case "RATON":
+                return new RatonImage().createImages();
+            case "OTTER":
+                return new OtterImage().createImages();
             default:
                 throw new IllegalArgumentException("Invalid image type: " + imageType);
         }

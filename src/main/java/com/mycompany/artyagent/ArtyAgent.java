@@ -6,6 +6,8 @@ package com.mycompany.artyagent;
 
 import javax.swing.JFrame;
 
+//factory-creearea de poze
+//observer-actualizarea scorului,
 
 public class ArtyAgent {
     
