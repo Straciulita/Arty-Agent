@@ -3,6 +3,7 @@ package com.mycompany.artyagent;
 import Imagini.ImageFactory;
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class GamePanel extends JPanel implements Runnable {
@@ -24,7 +25,8 @@ public class GamePanel extends JPanel implements Runnable {
      Score score = new Score();
      
     // Variabile pentru imagini
-    public List<ImageIcon> images;
+    //public List<ImageIcon> images;
+    public List<ImageIcon> images = new ArrayList<>();
 
     // Constructor
     public GamePanel() {
@@ -81,7 +83,12 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void update() {
-
+        
+        if(images==null){
+            images= new ArrayList<>();
+        }
+            
+        r.update();
     }
 
 @Override

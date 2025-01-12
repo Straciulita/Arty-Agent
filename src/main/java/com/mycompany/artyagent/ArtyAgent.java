@@ -7,7 +7,10 @@ package com.mycompany.artyagent;
 import javax.swing.JFrame;
 
 //factory-creearea de poze
-//observer-actualizarea scorului,
+//observer-actualizarea scorului. trecerea de la o runda la alta
+//decorator- animatiile tablourilor 
+
+
 
 public class ArtyAgent {
     

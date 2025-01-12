@@ -5,6 +5,9 @@ package com.mycompany.artyagent;
 // runa = afisarea pozelor. daca utilizatorul da click pe cea corecata trece mai departe
 
 
+import DecoratorSablon.Drawable;
+import DecoratorSablon.SimpleImage;
+import DecoratorSablon.SwingingDecorator;
 import Imagini.ImageFactory;
 import ObserverSablon.Observable;
 import ObserverSablon.Observer;
@@ -14,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import javax.swing.ImageIcon;
+import javax.swing.Timer;
 
 
 public class Round implements Observable {
@@ -22,16 +26,22 @@ public class Round implements Observable {
     String tip="";
     int index=Rand();
     private int roundNumber; // Runda curentă
+    private List<Drawable> images; // Listă de imagini decorate
     
      private List<Observer> observers; // Listă de observatori
     //constructor
     public Round(GamePanel gp) {
         this.gp = gp;
         this.roundNumber = 1; // Începe de la runda 1
-         
+        images = new ArrayList<>();
+        observers = new ArrayList<>(); // Inițializarea listei de observatori
+    
         setTip();
-        index=Rand();
-        System.out.println("Index: "+index);
+        loadImages();
+        index = Rand();
+        System.out.println("Index: " + index);
+
+        
        
     }
     public int Rand(){
@@ -66,41 +76,54 @@ public class Round implements Observable {
         index=Rand();
         System.out.println("Index: "+index);
         gp.images = ImageFactory.getImages(tip); // Actualizează imaginile
+        loadImages();
         gp.repaint(); // Re-redesenează panoul cu imaginile noi
     }
-
-    public void draw(Graphics2D g2){
-     // Încărcarea imaginilor din fabrica
-     gp.images = ImageFactory.getImages(tip); //alegem tipul imaginilor
-     
-     //alegem poza de sus
     
-     int x;
-     int y;
-      ImageIcon img = gp.images.get(index);
-      g2.drawImage(img.getImage(), 280, 240, gp.picW, gp.picH, null); 
+   private void loadImages() {
+       gp.images = ImageFactory.getImages(tip); //alegem tipul imaginilor
+    if (gp.images == null) {
+        System.err.println("Lista gp.images este null! Verifică inițializarea.");
+        return;
+    }
 
-        //desenez imaginile sub forma de matrice 2X2
-        if (gp.images != null) {
-         x = 200; // Poziția X pentru prima imagine
-         y = 400; // Poziția Y pentru prima imagine
-        int imagesPerRow = 2; // Numărul de imagini pe un rând
+    for (int i = 0; i < gp.images.size(); i++) {
+        ImageIcon icon = gp.images.get(i);
+        int x = 250 + (i % 2) * (gp.picW + 50);
+        int y = 550 + (i / 2) * (gp.picH + 50);
 
-        // Desenează fiecare imagine din listă folosind Graphics2D
-        for (int i = 0; i < gp.images.size(); i++) {
-            ImageIcon image = gp.images.get(i);
-            // Redimensionează imaginea la dimensiunile picW și picH
-            g2.drawImage(image.getImage(), x, y, gp.picW, gp.picH, null); 
-            
-            // Modifică coordonatele pentru următoarea imagine
-            if ((i + 1) % imagesPerRow == 0) {
-                x = 200;  // Resetează poziția X la începutul rândului
-                y += gp.picH + 10;  // Mărește poziția Y pentru următorul rând
-            } else {
-                x += gp.picW + 10; // Adaugă un spațiu între imagini pe același rând
-            }
+        Drawable simpleImage = new SimpleImage(icon, x, y, 170, 170);
+        
+
+        Drawable swingingImage = new SwingingDecorator(simpleImage, x + gp.picW /2, y, Math.PI / 12);
+
+        images.add(swingingImage);
+    }
+}
+
+   public void update() {
+    for (Drawable image : images) {
+        if (image instanceof SwingingDecorator) {
+            ((SwingingDecorator) image).update(); // Actualizează poziția imaginii oscilante
         }
     }
+}
+
+
+    public void draw(Graphics2D g2){
+  
+        gp.images = ImageFactory.getImages(tip); //alegem tipul imaginilor
+     if (gp.images != null && !gp.images.isEmpty()) {
+        ImageIcon img = gp.images.get(index);
+        g2.drawImage(img.getImage(), 280, 240, gp.picW, gp.picH, null);
+    } else {
+        System.err.println("Lista de imagini este goală sau null!");
+    }
+
+ 
+     for (Drawable image : images) {
+            image.draw(g2); // Desenează fiecare imagine decorată
+        }
     }
     
     public int getRoundNumber() {
