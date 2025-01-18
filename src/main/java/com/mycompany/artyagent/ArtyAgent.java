@@ -8,7 +8,9 @@ import javax.swing.JFrame;
 
 //factory-creearea de poze
 //observer-actualizarea scorului. trecerea de la o runda la alta
-//decorator- animatiile tablourilor 
+//decorator- animatiile tablourilor
+//command- butonul de pauza
+//adapter- sunet
 
 
 

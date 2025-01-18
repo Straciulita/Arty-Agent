@@ -100,7 +100,7 @@ public class Round implements Observable {
         images.add(swingingImage);
     }
 }
-
+ // metoda update de la decorator pt animatie
    public void update() {
     for (Drawable image : images) {
         if (image instanceof SwingingDecorator) {
@@ -109,10 +109,10 @@ public class Round implements Observable {
     }
 }
 
-
+   // desenam pozele cu ajutorul decorator
     public void draw(Graphics2D g2){
   
-        gp.images = ImageFactory.getImages(tip); //alegem tipul imaginilor
+        gp.images = ImageFactory.getImages(tip); //alegem tipul imaginilor sablonul factory
      if (gp.images != null && !gp.images.isEmpty()) {
         ImageIcon img = gp.images.get(index);
         g2.drawImage(img.getImage(), 280, 240, gp.picW, gp.picH, null);
