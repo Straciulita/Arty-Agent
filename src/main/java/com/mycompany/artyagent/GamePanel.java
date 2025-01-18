@@ -1,5 +1,7 @@
 package com.mycompany.artyagent;
 
+import AdapterSablon.SoundAdapter;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
@@ -25,6 +27,9 @@ public class GamePanel extends JPanel implements Runnable {
 
     // Variabile joc
     public final Score score = new Score();
+    public SoundAdapter sound = new SoundAdapter();
+
+
 
     // Variabile pentru imagini
     public List<ImageIcon> images = new ArrayList<>();
@@ -37,6 +42,7 @@ public class GamePanel extends JPanel implements Runnable {
 
         this.addMouseListener(ch);
         score.addObserver(u = new UI(this)); // Adaugă UI ca observator pentru scor
+        sound.playSound("fundal", true);
     }
 
     public void setupGame() {
@@ -109,6 +115,8 @@ public class GamePanel extends JPanel implements Runnable {
     public boolean isPaused() {
         return isPaused;
     }
+
+
 
 
 }

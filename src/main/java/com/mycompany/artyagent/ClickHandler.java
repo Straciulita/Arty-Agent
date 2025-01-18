@@ -36,7 +36,8 @@ public class ClickHandler implements MouseListener {
                      
                      if (i == gp.r.index) {
                         gp.score.increaseScore(1); //metoda de la observer
-                        if(gp.r.getRoundNumber()<=15)
+                         gp.sound.playSound("click");
+                        if(gp.r.getRoundNumber()<=10)
                          gp.r.nextRound(); // Trecem la următoarea rundă cu observer
                         else{
                             System.out.println("Felicitari!");
@@ -52,6 +53,11 @@ public class ClickHandler implements MouseListener {
         }
         if (x >= 600 && x <= 680 && y >= 20 && y <= 50) {
                 gp.togglePause(); // Comută pauza în GamePanel
+                if(gp.isPaused()){
+                    gp.sound.pauseSound();
+                }else{
+                    gp.sound.resumeSound();
+                }
             }
 
     }
