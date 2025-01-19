@@ -27,8 +27,11 @@ public class Round implements Observable {
     int index=Rand();
     private int roundNumber; // Runda curentă
     private List<Drawable> images; // Listă de imagini decorate
-    
-     private List<Observer> observers; // Listă de observatori
+
+    private boolean updated = false; // Indicator pentru actualizare
+
+
+    private List<Observer> observers; // Listă de observatori
     //constructor
     public Round(GamePanel gp) {
         this.gp = gp;
@@ -100,14 +103,21 @@ public class Round implements Observable {
         images.add(swingingImage);
     }
 }
- // metoda update de la decorator pt animatie
-   public void update() {
-    for (Drawable image : images) {
-        if (image instanceof SwingingDecorator) {
-            ((SwingingDecorator) image).update(); // Actualizează poziția imaginii oscilante
-        }
+
+ // Metoda update de la decorator pentru animație
+ public void update() {
+     for (Drawable image : images) {
+         //CLASA ROUND
+         if (image instanceof SwingingDecorator) {
+             ((SwingingDecorator) image).update(); // Actualizează poziția imaginii oscilante
+         }
+     }
+     updated = true; // Marchează că runda a fost actualizată
+ }
+
+    public boolean isUpdated() {
+        return updated;
     }
-}
 
    // desenam pozele cu ajutorul decorator
     public void draw(Graphics2D g2){

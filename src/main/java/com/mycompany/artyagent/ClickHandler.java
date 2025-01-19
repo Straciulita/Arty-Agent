@@ -1,15 +1,20 @@
 package com.mycompany.artyagent;
 
+import CommandSablon.PauseCommand;
+
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 public class ClickHandler implements MouseListener {
 
     private GamePanel gp;
-
+    private boolean clickDetected; // Flag pentru a marca dacă un click a fost detectat
+    public PauseCommand p ;
     // Constructor care primește referința la panoul de joc
     public ClickHandler(GamePanel gp) {
         this.gp = gp;
+        this.clickDetected = false; // Inițializare
+        p = new PauseCommand(gp);
     }
 
     @Override
@@ -18,7 +23,7 @@ public class ClickHandler implements MouseListener {
         int y = e.getY(); // Coordonata Y a click-ului
 
         System.out.println("Clicked at: " + x + ", " + y);
-
+        clickDetected = true;
         // Verifică dacă utilizatorul a dat click pe o imagine
         if (gp.images != null) {
             int imgX = 200; // Poziția inițială X a imaginilor
@@ -52,7 +57,8 @@ public class ClickHandler implements MouseListener {
             }
         }
         if (x >= 600 && x <= 680 && y >= 20 && y <= 50) {
-                gp.togglePause(); // Comută pauza în GamePanel
+            //CLASA CLICK HANDLER
+                    p.execute();
                 if(gp.isPaused()){
                     gp.sound.pauseSound();
                 }else{
@@ -60,6 +66,9 @@ public class ClickHandler implements MouseListener {
                 }
             }
 
+    }
+    public boolean isClickDetected() {
+        return clickDetected;
     }
 
     @Override

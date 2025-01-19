@@ -8,6 +8,7 @@ import javax.swing.ImageIcon;
 
 public class GalbenusImage implements Image {
 
+
     
     @Override
     public List<ImageIcon> createImages() {

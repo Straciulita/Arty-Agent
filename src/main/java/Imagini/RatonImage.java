@@ -6,7 +6,7 @@ import java.util.List;
 import javax.swing.ImageIcon;
 
 
-public class RatonImage {
+public class RatonImage implements Image {
     public List<ImageIcon> createImages() {
         return Arrays.asList(
             new ImageIcon(getClass().getResource("/raton/raton1.jpg")),

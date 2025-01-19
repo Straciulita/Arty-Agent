@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 import javax.swing.ImageIcon;
 
-public class OtterImage {
+public class OtterImage implements Image {
      public List<ImageIcon> createImages() {
         return Arrays.asList(
             new ImageIcon(getClass().getResource("/otter/otter1.jpg")),

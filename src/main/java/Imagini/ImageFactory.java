@@ -3,7 +3,7 @@ package Imagini;
 import java.util.List;
 import javax.swing.ImageIcon;
 
-public class ImageFactory {
+public abstract class ImageFactory implements Image {
     // Factory method pentru obținerea imaginilor pe baza tipului
     public static List<ImageIcon> getImages(String imageType) {
         if (imageType == null) {

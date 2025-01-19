@@ -6,4 +6,5 @@ public interface SoundPlayer {
     void stopSound();                      // Oprire sunet
     void pauseSound();                     // Pauză sunet
     void resumeSound();                    // Reluare sunet
+    boolean isSoundPlaying();  // Add this method to the interface
 }

@@ -7,6 +7,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import javax.swing.JPanel;
 
+
 public class UI extends JPanel implements Observer {
     private int score; // Scorul curent
     private final GamePanel gamePanel; // Referință către GamePanel pentru interacțiuni
@@ -21,8 +22,9 @@ public class UI extends JPanel implements Observer {
 
     @Override
     public void update(int score) {
+        //CLASA UI
         this.score = score; // Actualizează scorul
-        repaint(); // Cere redesenarea componentului UI
+        repaint(); //  redesenarea componentului UI
     }
 
     // Setează starea de pauză și cere redesenarea
@@ -66,5 +68,7 @@ public class UI extends JPanel implements Observer {
         g2d.drawString("Pause", 620, 40); // Textul butonului
     }
 
-
+    public int getScore() {
+        return this.score;
+    }
 }

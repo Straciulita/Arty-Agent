@@ -12,8 +12,8 @@ public class GamePanel extends JPanel implements Runnable {
     // Setări fereastră
     public final int ScreenW = 700;
     public final int ScreenH = 800;
-    public final int picW = 150;
-    public final int picH = 150;
+    public  int picW = 150;
+    public  int picH = 150;
     private Thread gameThread; // Pentru implementarea noțiunii de timp și repetare
     private final int FPS = 60; // Frames per second
 
@@ -115,7 +115,7 @@ public class GamePanel extends JPanel implements Runnable {
     public boolean isPaused() {
         return isPaused;
     }
-
+    public int getScore() {return score.getScore();}
 
 
 

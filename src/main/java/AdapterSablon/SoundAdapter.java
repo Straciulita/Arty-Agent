@@ -7,30 +7,30 @@ import java.net.URL;
 
 public class SoundAdapter implements SoundPlayer {
     private Clip clip;
+    private SoundAdapter soundAdapter;
 
     @Override
     public void playSound(String soundName) {
         playSound(soundName, false); // Apel implicit fără buclă
     }
 
+
     @Override
     public void playSound(String soundName, boolean loop) {
         try {
-            // Încarcă fișierul audio ca resursă
             URL soundURL = getClass().getResource("/Sound/" + soundName + ".wav");
             if (soundURL == null) {
                 throw new IOException("Sunetul nu a fost găsit: " + soundName);
             }
 
             AudioInputStream audioStream = AudioSystem.getAudioInputStream(soundURL);
-
             clip = AudioSystem.getClip();
             clip.open(audioStream);
 
             if (loop) {
-                clip.loop(Clip.LOOP_CONTINUOUSLY); // Activează buclă
+                clip.loop(Clip.LOOP_CONTINUOUSLY);
             } else {
-                clip.start(); // Redă o singură dată
+                clip.start();
             }
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
             System.out.println("Eroare la redarea sunetului: " + e.getMessage());
@@ -57,5 +57,9 @@ public class SoundAdapter implements SoundPlayer {
         if (clip != null && !clip.isRunning()) {
             clip.start(); // Reia redarea
         }
+    }
+
+    public boolean isSoundPlaying() {
+        return clip != null && clip.isRunning();
     }
 }
